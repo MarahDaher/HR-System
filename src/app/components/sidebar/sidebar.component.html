@@ -1,0 +1,102 @@
+<nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-dark" id="sidenav-main" >
+  <div class="container-fluid">
+    <!-- Toggler -->
+    <button class="navbar-toggler bg-white" type="button" (click)="isCollapsed=!isCollapsed"
+       aria-controls="sidenav-collapse-main">
+      <span class="navbar-toggler-icon text-white"></span>
+    </button>
+    <!-- Brand -->
+    <a class="navbar-brand pt-0" routerLinkActive="active" [routerLink]="['/dashboard']">
+      <img src="./assets/img/logo.png" class="navbar-brand-img d-none d-sm-block" alt="..." width="100px" style="margin: auto;">
+      <h3 class="text-white">Affiliate Mates Network</h3>
+      <!-- <h3 class="text-white">HR System</h3> -->
+    </a>
+    <!-- User -->
+    <ul class="nav align-items-center d-md-none">
+      <li class="nav-item" ngbDropdown placement="bottom-right">
+        <a class="nav-link nav-link-icon" role="button" ngbDropdownToggle>
+          <i nz-icon nzType="caret-down" nzTheme="outline" class="mx-2 text-white"></i>
+        </a>
+        <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
+          <a href="#!" class="dropdown-item">
+            <i class="ni ni-user-run"></i>
+            <span>Logout</span>
+          </a>
+        </div>
+      </li>
+      <li class="nav-item" ngbDropdown placement="bottom-right">
+        <!-- <a class="nav-link" role="button" ngbDropdownToggle>
+          <div class="media align-items-center">
+            <span class="avatar avatar-sm rounded-circle">
+              <img alt="Image placeholder" src="./assets/img/theme/team-1-800x800.jpg">
+            </span>
+          </div>
+        </a> -->
+        <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
+
+        </div>
+      </li>
+    </ul>
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse bg-dark"  [ngbCollapse]="isCollapsed" id="sidenav-collapse-main">
+      <!-- Collapse header -->
+      <!-- <div class="navbar-collapse-header d-md-none">
+        <div class="row">
+          <div class="col-6 collapse-brand">
+            <a  routerLinkActive="active" [routerLink]="['/dashboard']">
+              <img src="./assets/img/brand/blue.png">
+            </a>
+          </div>
+          <div class="col-6 collapse-close">
+            <button type="button" class="navbar-toggler" (click)="isCollapsed=!isCollapsed">
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div> -->
+      <!-- Navigation -->
+      <h6 class="navbar-heading text-muted">Employees</h6>
+      <ul class="navbar-nav">
+          <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+              <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">
+                  <i class="ni {{menuItem.icon}}"></i>
+                  <span class="text-white">{{menuItem.title}}</span>
+                </a>
+          </li>
+      </ul>
+      <!-- Divider -->
+      <hr class="my-3">
+      <!-- Navigation -->
+      <h6 class="navbar-heading text-muted">Settings</h6>
+      <ul class="navbar-nav">
+          <li *ngFor="let menuItem of menuItems2" class="{{menuItem.class}} nav-item">
+              <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">
+                  <i class="ni {{menuItem.icon}}"></i>
+                   <span class="text-white">{{menuItem.title}}</span>
+              </a>
+          </li>
+      </ul>
+      <!-- Heading -->
+      <!-- <h6 class="navbar-heading text-muted">Documentation</h6> -->
+      <!-- Navigation -->
+      <!-- <ul class="navbar-nav mb-md-3">
+        <li class="nav-item">
+          <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/tutorial">
+            <i class="ni ni-spaceship"></i> Getting started
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/colors">
+            <i class="ni ni-palette"></i> Foundation
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/alerts">
+            <i class="ni ni-ui-04"></i> Components
+          </a>
+        </li>
+      </ul> -->
+    </div>
+  </div>
+</nav>

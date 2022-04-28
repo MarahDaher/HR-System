@@ -1,0 +1,92 @@
+<form nz-form [formGroup]="filterForm">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 py-2">
+            <nz-form-item class="d-block mx-1 my-0">
+                <nz-form-label class="text-white">Material</nz-form-label>
+                <nz-form-control>
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Material"
+                        [formControlName]="'materialTypeId'" [nzLoading]="isLoadingMaterial"
+                        (nzOnSearch)="onSearchMaterial()" (nzScrollToBottom)="loadMoreMaterial()" nzServerSearch>
+                        <ng-container *ngFor="let c of materialList">
+                            <nz-option nzCustomContent [nzValue]="c.id" [nzLabel]="c.enName">
+                                <span>{{c.enName}}</span>
+                            </nz-option>
+                        </ng-container>
+
+                        <nz-option *ngIf="isLoadingMaterial" nzDisabled nzCustomContent>
+                            <i nz-icon nzType="loading" class="loading-icon"></i>
+                            Loading
+                        </nz-option>
+                    </nz-select>
+
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+
+        <div class="col-md-12 col-sm-12 py-2" *ngIf="materialTypeIdControl.value">
+            <nz-form-item class="d-block mx-1 my-0">
+                <nz-form-label class="text-white">Transactions</nz-form-label>
+                <nz-form-control>
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Transactions"
+                        [formControlName]="'inTransactionId'" [nzLoading]="isLoadingTransaction"
+                        (nzOnSearch)="onSearchTransactions()" (nzScrollToBottom)="loadMoreTransactions()" nzServerSearch>
+                        <ng-container *ngFor="let c of transactionList">
+
+                            <nz-option nzCustomContent [nzValue]="c.id" [nzLabel]="c.materialType.enName + '' + c.serialNumber">
+                                <span class="d-flex justify-content-between">
+                                    <span>{{c.materialType.enName}} ({{c.remainingQuantity}})</span>
+                                    <span>{{c.serialNumber}}</span>
+                                    <span>{{c.transactionDate | date: utility.longDateFormat}}</span>
+                                </span>
+                            </nz-option>
+                        </ng-container>
+
+                        <nz-option *ngIf="isLoadingTransaction" nzDisabled nzCustomContent>
+                            <i nz-icon nzType="loading" class="loading-icon"></i>
+                            Loading
+                        </nz-option>
+                    </nz-select>
+
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+
+        <div class="col-md-12 col-sm-12 py-2">
+            <nz-form-item class="d-block mx-1 my-0">
+                <nz-form-label class="text-white">Quantity</nz-form-label>
+                <nz-form-control>
+                    <nz-input-number class="ltr-input w-100" [formControlName]="'quantity'" [nzMin]="0" [nzStep]="1"
+                        nzPlaceHolder="Quantity" appEmptyToNull> </nz-input-number>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+
+        <div class="col-md-12 col-sm-12 py-2">
+            <nz-form-item class="d-block mx-1 my-0">
+                <nz-form-label class="text-white">Date</nz-form-label>
+                <nz-form-control>
+                    <nz-date-picker [formControlName]="'createdDate'" class="w-100" [nzShowTime]="true" 
+                        [nzFormat]="utility.longDateFormat"></nz-date-picker>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+
+        <div class="col-md-12 col-sm-12 py-2">
+            <nz-form-item class="d-block mx-1 my-0">
+                <nz-form-label class="text-white">Note</nz-form-label>
+                <nz-form-control>
+                    <textarea [formControlName]="'notes'" [nzSize]="'small'" nz-input [rows]="3"
+                        placeholder="Write Note"></textarea>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+</form>
+
+
+<div *nzModalFooter>
+    <button nz-button nzType="text" (click)="handleCancel()">Cancel</button>
+    <button nz-button nzType="primary" (click)="submitForm(filterForm.value)" [nzLoading]="initLoading">
+        Save
+    </button>
+</div>

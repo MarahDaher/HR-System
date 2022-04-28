@@ -1,0 +1,91 @@
+<div class="header bg-gradient-danger1 pb-1 pt-5 pt-md-4">
+    <div class="container-fluid pb-md-4">
+        <div class="header-body">
+            <div class="row my-2">
+                <h2 class="text-white mx-4">Notifications</h2>
+            </div>
+            <div class="row my-1">
+                <h4 *ngIf="totalCount" class="text-white mx-2 col">Total Notifications: {{totalCount}}
+                </h4>
+                <span class="d-flex justify-content-end col">
+                    <button class="btn btn-icon btn-3 btn-default btn-sm mt-2" type="button"
+                        (click)="getAllNotifications()">
+                        <span class="btn-inner--icon"><i class="fas fa-random"></i></span>
+                <span class="btn-inner--text">Refresh</span>
+                </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nz-spin [nzSpinning]="loading">
+    <div style="overflow-y: scroll; height: 77vh;;" *ngIf="notificationList.length != 0">
+        <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Employee Name</th>
+                        <!-- <th scope="col">Position</th> -->
+                        <th scope="col">Date</th>
+                        <th scope="col">Type</th>
+                        <th scope="col" class="text-center">Reason</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #f6f9fc" *ngFor="let employee of
+                        notificationList;let i=index">
+                        <td>{{i + 1}}</td>
+                        <td>
+                            <span class="d-flex flex-column">
+                                <span> {{employee?.employee?.fullName}}</span>
+                            </span>
+                        </td>
+                        <td>{{ employee?.fromDate}}
+                            <span *ngIf="employee?.toDate" class="badge
+                                badge-warning">to</span> {{ employee?.toDate}}
+                        </td>
+                        <td>
+                            <span class="badge badge-success text-dark" style="background: #92f1c8" *ngIf="employee?.leaveType == 'Annual Leave'">Annual Leave</span>
+                            <span class="badge badge-info text-dark" style="background: #8dedff;" *ngIf="employee?.leaveType == 'Sick leave'">Sick leave</span>
+                            <span class="badge badge-danger text-dark" style="background: #dbb4f9" *ngIf="employee?.leaveType == 'Marriage Leave'">Marriage Leave</span>
+                            <span class="badge badge-secondary text-dark" style="background: hotpink" *ngIf="employee?.leaveType == 'Motherhood Leave'">Motherhood Leave</span>
+                            <span class="badge badge-default text-white" style="background: black" *ngIf="employee?.leaveType == 'Death Leave'">Death Leave</span>
+                            <span class="badge badge-default text-white" style="background: red" *ngIf="employee?.leaveType == 'Unpaid Leave'">Unpaid Leave</span>
+                            <span class="badge text-dark" *ngIf="employee?.leaveType == 'Hourly Leave'" style="background: yellow">Hourly Leave</span>
+                        </td>
+                        <td class="text-center">
+                            <i class="ni ni-single-copy-04" style="cursor: pointer;" placement="top" (click)="showReason(employee)"></i>
+                        </td>
+                        <td style="text-align: end;">
+                            <button class="btn btn-icon btn-2 btn-success btn-sm
+                                text-end" type="button" (click)="showAcceptedModal(employee)">
+                                <span class="btn-inner--icon"><i class="fas
+                                        fa-check"></i></span>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-icon btn-2 btn-danger btn-sm" type="button" (click)="showRejectModal(employee)">
+                                <span class="btn-inner--icon"><i class="fas
+                                        fa-trash"></i></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</nz-spin>
+
+<div class="h-75 my-5" *ngIf="notificationList.length == 0">
+    <nz-empty [nzNotFoundContent]="contentTpl" [nzNotFoundImage]="''">
+        <ng-template #contentTpl>
+            <div class="d-flex flex-column">
+                <span class="my-2">No Notifications</span>
+            </div>
+        </ng-template>
+    </nz-empty>
+</div>

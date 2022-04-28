@@ -1,0 +1,111 @@
+<nz-spin [nzSpinning]="initLoading">
+
+    <form nz-form [formGroup]="filterForm">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 py-2">
+                <nz-form-item class="d-block mx-1 my-0">
+                    <nz-form-label class="text-white">Employee</nz-form-label>
+                    <nz-form-control>
+                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Employee" [formControlName]="'employeeId'" [nzLoading]="isLoadingEmployee">
+                            <ng-container *ngFor="let c of employeeList">
+                                <nz-option nzCustomContent [nzValue]="c.id" [nzLabel]="c.fullName">
+                                    <span>{{c.fullName}}</span>
+                                </nz-option>
+                            </ng-container>
+
+                            <nz-option *ngIf="isLoadingEmployee" nzDisabled nzCustomContent>
+                                <i nz-icon nzType="loading" class="loading-icon"></i> Loading
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-12 col-sm-12 py-2">
+                <nz-form-item class="d-block mx-1 my-0">
+                    <nz-form-label class="text-white">Leave Type</nz-form-label>
+                    <nz-form-control>
+                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Leave Type" [formControlName]="'leaveTypeId'" [nzLoading]="isLoadingLeaveType">
+                            <ng-container *ngFor="let c of leavesTypeList">
+                                <nz-option nzCustomContent [nzValue]="c.id" [nzLabel]="c.enName">
+                                    <span>{{c.enName}}</span>
+                                </nz-option>
+                            </ng-container>
+
+                            <nz-option *ngIf="isLoadingLeaveType" nzDisabled nzCustomContent>
+                                <i nz-icon nzType="loading" class="loading-icon"></i> Loading
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-12 col-sm-12 py-2">
+                <nz-form-item class="d-block mx-1 my-0">
+                    <nz-form-label class="text-white">Request Status</nz-form-label>
+                    <nz-form-control>
+                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Request Status" [formControlName]="'requestStatusId'">
+                            <nz-option *ngFor="let el of requestStatus" [nzLabel]="el.name" [nzValue]="el.id">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+
+    <nz-form-item class="row d-block mx-1 my-0">
+        <nz-form-label class="text-white">Date</nz-form-label>
+        <span class="mx-2">
+            <label nz-checkbox [(ngModel)]="fullTime" (ngModelChange)="checkButton(fullTime)">Full Day</label>
+        </span>
+        <!--<nz-form-control>
+            <span *ngIf="showTime;else noTime">
+                <nz-range-picker [nzFormat]="utility.longDateFormat" [nzShowTime]="true" class="w-100" [nzRanges]="ranges" [nzDisabledTime]="disabledRangeTime" [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm" ngModel (ngModelChange)="applyFilter($event, 'Range')"
+                    [ngModel]='defaultDate'>
+                </nz-range-picker>
+            </span>
+            <ng-template #noTime>
+                <nz-date-picker ngModel class="w-100" [nzShowTime]="false" [nzFormat]="'yyyy-MM-dd'" (ngModelChange)="applyFilter($event, 'Day')"></nz-date-picker>
+            </ng-template>
+        </nz-form-control> -->
+        <!-- 
+        <nz-form-control>
+
+            <nz-range-picker [nzShowTime]="true" [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-range-picker>
+
+
+            <nz-range-picker [nzFormat]="utility.longDateFormat" [nzShowTime]="true" class="w-100" [nzRanges]="ranges" ngModel (ngModelChange)="applyFilter($event, 'Range')" nzFormat="yyyy-MM-dd HH:mm" [nzDisabledTime]="disabledRangeTime" [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                [ngModel]='defaultDate'>
+            </nz-range-picker>
+        </nz-form-control> -->
+
+        <nz-form-control *ngIf="showTime">
+            <nz-range-picker [nzFormat]="utility.longDateFormat" [nzShowTime]="true" class="w-100" [nzRanges]="ranges" ngModel (ngModelChange)="applyFilter($event, 'Range')" [ngModel]='defaultDate'>
+            </nz-range-picker>
+        </nz-form-control>
+
+        <nz-form-control *ngIf="!showTime">
+            <nz-date-picker ngModel class="w-100" [nzShowTime]="false" [nzFormat]="'yyyy-MM-dd'" (ngModelChange)="applyFilter($event, 'Day')"></nz-date-picker>
+        </nz-form-control>
+
+
+
+    </nz-form-item>
+
+    <form nz-form [formGroup]="filterForm">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 py-2">
+                <nz-form-item class="d-block mx-1 my-0">
+                    <nz-form-label class="text-white">Reason</nz-form-label>
+                    <nz-form-control>
+                        <textarea [formControlName]="'reason'" [nzSize]="'small'" nz-input [rows]="3" placeholder="Write Reason"></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+</nz-spin>
+
+<div *nzModalFooter>
+    <button nz-button nzType="text" (click)="handleCancel()">Cancel</button>
+    <button type="button" class="btn btn-default" (click)="submitForm(filterForm.value)">Save</button>
+</div>

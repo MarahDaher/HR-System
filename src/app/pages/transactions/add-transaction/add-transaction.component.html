@@ -1,0 +1,54 @@
+<nz-spin [nzSpinning]="initLoading">
+    <form nz-form [formGroup]="filterForm">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 py-2">
+                <nz-form-item class="d-block mx-1 my-0">
+                    <nz-form-label class="text-white">Materials</nz-form-label>
+                    <nz-form-control>
+                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Materials" [nzLoading]="isLoadingMaterial" [formControlName]="'materialTypeId'">
+                            <ng-container *ngFor="let c of materialsList">
+                                <nz-option nzCustomContent [nzValue]="c.id" [nzLabel]="c.enName">
+                                    <span>{{c.enName}}</span>
+                                </nz-option>
+                            </ng-container>
+
+                            <nz-option *ngIf="isLoadingMaterial" nzDisabled nzCustomContent>
+                                <i nz-icon nzType="loading" class="loading-icon"></i> Loading
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="col-md-12 col-sm-12 py-2">
+                <nz-form-item class="d-block mx-1 my-0">
+                    <nz-form-label class="text-white">Serial Number</nz-form-label>
+                    <nz-form-control>
+                        <input type="text" nz-input placeholder="Serial Number" [formControlName]="'serialNumber'" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-12 col-sm-12 py-2">
+                <nz-form-item class="d-block mx-1 my-0">
+                    <nz-form-label class="text-white">Quantity</nz-form-label>
+                    <nz-form-control>
+                        <nz-input-number class="ltr-input w-100" [formControlName]="'quantity'" [nzMin]="0" [nzStep]="1" nzPlaceHolder="Quantity" appEmptyToNull> </nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="col-md-12 col-sm-12 py-2">
+                <nz-form-item class="d-block mx-1 my-0">
+                    <nz-form-label class="text-white">Transaction Date</nz-form-label>
+                    <nz-form-control>
+                        <nz-date-picker [formControlName]="'transactionDate'" class="w-100" [nzShowTime]="true" [nzDisabledTime]="disabledDateTime" [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm" [nzFormat]="utility.longDateFormat"></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+</nz-spin>
+<div *nzModalFooter>
+    <button nz-button nzType="text" (click)="handleCancel()">Cancel</button>
+    <button type="button" class="btn btn-default" (click)="submitForm(filterForm.value)">Save</button>
+</div>

@@ -1,0 +1,37 @@
+.form-control {
+    color: black;
+}
+
+.card-profile-stats>div .heading {
+    font-weight: 600 !important;
+    text-transform: none
+}
+
+.totalDays {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+:host ::ng-deep .ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-item {
+    color: black !important;
+}
+
+:host ::ng-deep .ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    background: #e9ecef !important;
+    border-radius: 5px;
+}
+
+:host ::ng-deep .ant-picker.ant-picker-disabled {
+    background: #e9ecef !important;
+    border-radius: 5px
+}
+
+:host ::ng-deep ant-input-disabled,
+.ant-input[disabled] {
+    background: #e9ecef !important;
+    border-radius: 5px
+}
+
+:host ::ng-deep .ant-picker-large .ant-picker-input>input {
+    color: black !important;
+}

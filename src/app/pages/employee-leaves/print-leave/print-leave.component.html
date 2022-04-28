@@ -1,0 +1,110 @@
+<div class="" id='printableArea'>
+    <div class="m-a">
+        <div>
+            <div class="row mx-3">
+                <div class="col-8 d-flex flex-column align-items-start justify-content-center">
+                    <h1>Affiliate Mates Network</h1>
+                </div>
+                <div class="col-4 mt-3 d-flex flex-column align-items-end">
+                    <div>
+                        <img src="assets/img/logo.png" width="250px" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="main-print">
+            <div class="row mx-3 my-4 d-flex flex-column ">
+                <h1 class="col text-center" style="font-size: 40px;">Absence request</h1>
+            </div>
+
+            <div class="details">
+                <div class="row mx-3 my-4">
+                    <h1 class="col p-0 m-0">
+                        <span class="col-6 text-left">Employee Name :</span>
+                        <span class="text-right p-0 m-0">{{employee?.employee?.fullName}}</span>
+                    </h1>
+                </div>
+
+                <div class="row mx-3 my-4">
+                    <h1 class="col p-0 m-0">
+                        <span class="col-6 text-left">Position :</span>
+                        <span class="text-right p-0 m-0">{{employee?.employee?.position}}</span>
+                    </h1>
+                </div>
+                <div class="row mx-3 my-4">
+                    <h1 class="col-6 p-0 m-0">
+                        <span class="col text-left">From Date :</span>
+                        <span class="text-right p-0 m-0">{{employee?.fromDate | date: utility.longDateFormat}}</span>
+                    </h1>
+                </div>
+
+                <div class="row mx-3 my-4">
+                    <h1 class="col p-0 m-0">
+                        <span class="col text-left">To Date :</span>
+                        <span class="text-right p-0 mr-2">{{employee?.toDate | date: utility.longDateFormat}}</span>
+                    </h1>
+                </div>
+
+                <div class="row mx-3 my-4">
+                    <h1 class="col p-0 m-0">
+                        <span class="col text-left">Create Date :</span>
+                        <span class="text-right p-0 mr-2">{{employee?.createdDate | date: utility.longDateFormat}}</span>
+                    </h1>
+                </div>
+
+
+                <div class="row mx-3 my-4">
+                    <h1 class="col p-0 m-0">
+                        <span class="col-6 text-left">Leave Type :</span>
+                        <span class="text-right p-0 m-0">{{employee?.leaveType?.enName}}</span>
+                    </h1>
+                </div>
+
+                <div class="row mx-3 mt-4">
+                    <h1 class="col p-0 m-0">
+                        <span class="col-6 text-left">Leave Status :</span>
+                        <span class="text-right p-0 m-0">{{employee?.requestStatus?.enName}}</span>
+                    </h1>
+                </div>
+
+                <div class="row mx-3 my-4">
+                    <h1 class="col p-0 m-0">
+                        <span class="col text-left">Leave Hour :</span>
+                        <span class="text-right p-0 m-0">{{employee?.totalLeaveHoursDisplay}}</span>
+                    </h1>
+                </div>
+
+                <div class="row mx-3 my-4">
+                    <h1 class="col p-0 m-0">
+                        <span class="col">Reason :</span>
+                        <span class="text-right p-0 m-2">{{employee?.reason ? employee?.reason : "No Reason"}}</span>
+                    </h1>
+                </div>
+
+                <div class="row mx-3 mb-5">
+                    <div class="col d-flex justify-content-end align-items-end" style="margin-top: 200px;">
+                        <h1>Signature</h1>
+                    </div>
+                </div>
+
+                <hr class="details" style="border: 1px solid black; margin-top: 150px;">
+
+                <div class="row mx-3 pageBreak" *ngIf="employee?.imageName">
+                    <div class="col d-flex justify-content-center">
+                        <img [src]="selectedImg" width="400px" class="mb-3">
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+    <!-- <hr class="hr"> -->
+    <!-- <footer class="row mx-4 my-2 d-flex justify-content-between align-items-end">
+        <small>Website : www.affiliatematesnetwork.com</small>
+
+    </footer> -->
+</div>

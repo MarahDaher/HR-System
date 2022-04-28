@@ -1,0 +1,42 @@
+.ant-list-split .ant-list-item {
+    background: white;
+    color:  #172b4d;
+    padding: 24px;
+    margin: 2px 0;
+    border-radius: 4px;
+}
+
+:host ::ng-deep .ant-list-item-action {
+    margin-left: 10px !important;
+}
+
+:host ::ng-deep .ant-list {
+    border-radius: 8px;
+}
+
+.text-dark{
+    color:  #172b4d;
+}
+
+.btn{
+    padding: 0.400rem 1.25rem;
+}
+
+
+.table .thead-light th {
+    background-color: #f6f9fc;
+    color: black;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.table-flush tbody tr td, .table-flush tbody tr th {
+    border-top: 0;
+    color: black;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.badge{
+    font-size: 13px;
+}

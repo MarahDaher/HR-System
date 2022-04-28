@@ -1,0 +1,63 @@
+/* You can add global styles to this file, and also import other style files */
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: lightgray;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #f5365c;
+    border-radius: 5px;
+    background-image: -webkit-linear-gradient(90deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent) // }linear-gradient(87deg, #f5365c 0, #f56036 100%) !important;
+}
+
+:host ::ng-deep .ant-spin-dot-item {
+    background-color: #bc0303 !important;
+}
+
+// body{
+//    background-color: #f0f2f5 !important;
+// }
+// :host :ng-deep main-content {
+//    background-color: #f0f2f5 !important;
+// }
+.bg-gradient-danger1 {
+    background: linear-gradient(87deg, #f5365c 0, #d32227 100%) !important;
+}
+
+.navbar-vertical.navbar-expand-md .navbar-nav .nav-link.active:before {
+    border-left: 2px solid #db2734 !important
+}
+
+.bg-default {
+    background-color: black;
+    background: black;
+}
+
+body {
+    background: #f6f9fc !important;
+}
+
+@media print {
+    * {
+        visibility: hidden !important;
+    }
+    .qrcode>canvas {
+        visibility: visible !important;
+    }
+    @page {
+        margin: 0mm;
+    }
+}
+
+@media print {
+    .print-area,
+    .print-area * {
+        visibility: visible !important;
+    }
+}

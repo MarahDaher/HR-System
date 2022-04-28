@@ -1,0 +1,40 @@
+<nz-spin [nzSpinning]="initLoading">
+    <form nz-form [formGroup]="filterForm">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 py-2">
+                <nz-form-item class="d-block mx-1 my-0">
+                    <nz-form-label class="text-white">English Name</nz-form-label>
+                    <nz-form-control>
+                        <input type="text" nz-input placeholder="English Name" [formControlName]="'enName'" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="col-md-12 col-sm-12 py-2">
+                <nz-form-item class="d-block mx-1 my-0">
+                    <nz-form-label class="text-white">Arabic Name</nz-form-label>
+                    <nz-form-control>
+                        <input type="text" nz-input placeholder="English Name" [formControlName]="'arName'" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="col-md-12 col-sm-12 py-2">
+                <nz-form-item class="d-block mx-1 my-0">
+                    <nz-form-label class="text-white">Date</nz-form-label>
+                    <nz-form-control>
+                        <nz-date-picker [formControlName]="'createdDate'" class="w-100" [nzShowTime]="true"
+                        [nzDisabledTime]="disabledDateTime" [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                        nzFormat="yyyy-MM-dd HH:mm" [nzFormat]="utility.longDateFormat"></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+</nz-spin>
+
+
+<div *nzModalFooter>
+    <button nz-button nzType="text" (click)="handleCancel()">Cancel</button>
+    <button type="button" class="btn btn-default" (click)="submitForm(filterForm.value)">Save</button>
+</div>

@@ -1,0 +1,129 @@
+<div class="header bg-gradient-danger1 pb-1 pt-5 pt-md-4">
+    <div class="container-fluid pb-md-4">
+        <div class="header-body">
+            <div class="row my-2">
+                <h2 class="text-white mx-4">Transactions</h2>
+            </div>
+            <div class="row my-1 d-flex justify-content-between">
+                <h4 *ngIf="totalCount" class="text-white mx-4">Total Transactions: {{totalCount}}
+                </h4>
+            </div>
+        </div>
+        <div class="row justify-content-start mx-0">
+            <div class="col-md-3 col-sm-12 px-2 py-2 px-0">
+                <nz-form-item class="d-block mx-1 my-0">
+                    <nz-form-label class="text-white">Materials</nz-form-label>
+                    <nz-form-control>
+                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Materials" [nzLoading]="isLoadingMaterial" (ngModelChange)="applyFilter($event,'Materials')" [ngModel]='materialTypeIdControl.value'>
+                            <ng-container *ngFor="let c of materialsList">
+                                <nz-option nzCustomContent [nzValue]="c.id" [nzLabel]="c.enName">
+                                    <span>{{c.enName}}</span>
+                                </nz-option>
+                            </ng-container>
+
+                            <nz-option *ngIf="isLoadingMaterial" nzDisabled nzCustomContent>
+                                <i nz-icon nzType="loading" class="loading-icon"></i> Loading
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="col-md-3 col-sm-12 py-2 px-0 mx-2">
+                <nz-form-item class="d-block mx-1 my-0">
+                    <nz-form-label class="text-white">Date</nz-form-label>
+                    <nz-form-control>
+                        <nz-range-picker [nzFormat]="utility.longDateFormat" [nzShowTime]="false" class="w-100" ngModel [nzFormat]="'yyyy-MM-dd'" (ngModelChange)="applyFilter($event,
+                            'Range')" [ngModel]='defaultDate'>
+                        </nz-range-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- <div class="col-md-2 d-flex align-items-end my-2">
+                <button class="btn btn-icon btn-3 btn-default btn-sm" type="button" (click)="submitForm(filterForm.value)">
+                    <span class="btn-inner--icon"><i class="fas fa-search"></i></span>
+                    <span class="btn-inner--text">Search</span>
+                </button>
+            </div> -->
+
+            <div class="col-md col-sm-12 px-1 d-flex py-2 mx-1 justify-content-between row flex-md-row flex-sm-column align-items-md-end align-items-sm-start">
+
+
+                <span class="col">
+                    <button class="btn btn-icon btn-3 btn-default btn-sm mt-2" type="button" (click)="submitForm(filterForm.value)">
+                        <span class="btn-inner--icon"><i class="fas fa-search"></i></span>
+                <span class="btn-inner--text">Search</span>
+                </button>
+                <button class="btn btn-icon btn-3 btn-default btn-sm mt-2" type="button" (click)="submitForm(filterForm.value)">
+                        <span class="btn-inner--icon"><i class="fas fa-random"></i></span>
+                        <span class="btn-inner--text">Refresh</span>
+                    </button>
+
+                <button class="btn btn-icon btn-3 btn-default btn-sm mt-2" type="button" (click)="addTransactions()">
+                        <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
+                        <span class="btn-inner--text">Add Transaction</span>
+                    </button>
+
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nz-spin *ngIf="loading"></nz-spin>
+
+<div style="overflow-y: scroll; height: 70vh;" *ngIf="transactionsList.length
+    != 0">
+    <div class="table-responsive">
+        <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Material</th>
+                    <th scope="col">Serial Number</th>
+                    <th scope="col">Transaction Date</th>
+                    <th scope="col" class="text-center">Quantity</th>
+                    <th scope="col" class="text-center">Remaining Quantity</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background: #f6f9fc" *ngFor="let data of
+                    transactionsList;let i=index">
+                    <td>{{i + 1}}</td>
+                    <td>{{data?.materialType?.enName}}</td>
+                    <td>{{data?.serialNumber}}</td>
+                    <td>{{data?.transactionDate | date : utility.longDateFormat}}
+                    </td>
+                    <td class="text-center">{{data?.quantity}}</td>
+                    <td class="text-center">{{data?.remainingQuantity}}</td>
+                    <td style="text-align: end;">
+                        <button class="btn btn-icon btn-2 btn-success btn-sm
+                            text-end" type="button" (click)="addTransactions(data)">
+                            <span class="btn-inner--icon"><i class="fas fa-pen"></i></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-icon btn-2 btn-danger btn-sm" type="button" (click)="showConfirmDelete(data)">
+                            <span class="btn-inner--icon"><i class="fas
+                                    fa-trash"></i></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="h-75 my-5" *ngIf="transactionsList.length == 0">
+    <nz-empty [nzNotFoundContent]="contentTpl" [nzNotFoundImage]="''">
+        <ng-template #contentTpl>
+            <div class="d-flex flex-column">
+                <span class="my-2">No Transactions</span>
+            </div>
+        </ng-template>
+    </nz-empty>
+</div>

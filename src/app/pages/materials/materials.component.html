@@ -1,0 +1,72 @@
+<div class="header bg-gradient-danger1 pb-1 pt-5 pt-md-4">
+    <div class="container-fluid pb-md-4">
+        <div class="header-body">
+            <div class="row my-4">
+                <div class="col text-white mx-4">
+                    <h2 class="text-white">Materials</h2>
+                    <h4 *ngIf="totalCount" class="text-white">Total Materials: {{totalCount}}
+                    </h4>
+                </div>
+
+                <div class="col" style="text-align: end;">
+                    <button class="btn btn-icon btn-3 btn-default mx-4 my-3 text-end" type="button" (click)="addMaterials()">
+                        <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
+                        <span class="btn-inner--text">Add Material</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nz-spin *ngIf="initLoading"></nz-spin>
+
+<div style="overflow-y: scroll; height: 77vh;" *ngIf="materialsList.length != 0">
+    <div class="table-responsive">
+        <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">English Name</th>
+                    <th scope="col">Arabic Name</th>
+                    <th scope="col">Create Date</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background: #f6f9fc" *ngFor="let data of materialsList;let i=index">
+                    <td>{{i + 1}}</td>
+                    <td>{{data?.enName}}</td>
+                    <td>{{data?.arName}}</td>
+                    <td>{{data?.createdDate | date : utility.longDateFormat}}</td>
+                    <td style="text-align: end;">
+                        <button class="btn btn-icon btn-2 btn-success btn-sm
+                            text-end" type="button" (click)="addMaterials(data)">
+                            <span class="btn-inner--icon"><i class="fas fa-pen"></i></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-icon btn-2 btn-danger btn-sm" type="button" (click)="showConfirmDelete(data)">
+                            <span class="btn-inner--icon"><i class="fas
+                                    fa-trash"></i></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<div class="h-75 my-5" *ngIf="materialsList.length == 0">
+    <nz-empty [nzNotFoundContent]="contentTpl" [nzNotFoundImage]="''">
+        <ng-template #contentTpl>
+            <div class="d-flex flex-column">
+                <span class="my-2">No Materials</span>
+            </div>
+        </ng-template>
+    </nz-empty>
+</div>

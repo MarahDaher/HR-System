@@ -1,0 +1,58 @@
+<div class="row mt-3">
+    <div class="col-8">
+        <h1>{{employee?.employee?.fullName}}</h1>
+        <h3>{{employee?.employee?.position}}</h3>
+    </div>
+    <div class="col d-flex justify-content-end align-items-end">
+        <a>
+            <button class="btn btn-icon btn-3 btn-default btn-sm mb-2" type="button" (click)="printLeave(employee)">
+            <span class="btn-inner--icon"><i class="fas fa-print"></i></span>
+            <span class="btn-inner--text">Print</span>
+        </button>
+        </a>
+    </div>
+</div>
+
+<nz-divider nzText="Leave Details" nzOrientation="left" class="mt-5"></nz-divider>
+
+<div class="mt-1">
+    <nz-descriptions nzTitle="" nzBordered [nzColumn]="{ xxl: 1, xl: 1, lg: 1, md: 2, sm: 1, xs: 1 }">
+        <nz-descriptions-item nzTitle="From Date">{{employee?.fromDate | date: utility.longDateFormat}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="To Date">{{employee?.toDate | date: utility.longDateFormat}}</nz-descriptions-item>
+
+        <nz-descriptions-item nzTitle="Type">
+            <span class="badge badge-success text-dark" style="background: #92f1c8" *ngIf="employee?.leaveType?.enName == 'Annual Leave'">Annual Leave</span>
+            <span class="badge badge-info text-dark" style="background: #8dedff;" *ngIf="employee?.leaveType?.enName == 'Sick leave'">Sick leave</span>
+            <span class="badge badge-danger text-dark" style="background: #dbb4f9" *ngIf="employee?.leaveType?.enName == 'Marriage Leave'">Marriage Leave</span>
+            <span class="badge badge-secondary text-dark" style="background: hotpink" *ngIf="employee?.leaveType?.enName == 'Motherhood Leave'">Motherhood Leave</span>
+            <span class="badge badge-default text-white" style="background: black" *ngIf="employee?.leaveType?.enName == 'Death Leave'">Death Leave</span>
+            <span class="badge badge-default text-white" style="background: red" *ngIf="employee?.leaveType?.enName == 'Unpaid Leave'">Unpaid Leave</span>
+            <span class="badge text-dark" *ngIf="employee?.leaveType?.enName == 'Hourly Leave'" style="background: yellow">Hourly Leave</span>
+        </nz-descriptions-item>
+
+        <nz-descriptions-item nzTitle="Status">
+            <span class="badge text-white" style="background: #308f1f;" *ngIf="employee?.requestStatus?.enName == 'Accepted'">Accepted</span>
+            <span class="badge text-dark" style="background: orange;" *ngIf="employee?.requestStatus?.enName == 'Pending'">Pending</span>
+            <span class="badge badge-white text-dark" style="background: red;" *ngIf="employee?.requestStatus?.enName == 'Rejected'">Rejected</span>
+        </nz-descriptions-item>
+
+        <nz-descriptions-item nzTitle="Leave Hour">{{employee?.totalLeaveHoursDisplay}}</nz-descriptions-item>
+    </nz-descriptions>
+</div>
+
+<nz-divider *ngIf="employee?.reason" nzText="Reason" nzOrientation="left" class="mt-5"></nz-divider>
+
+<div class="row">
+    <div class="col" *ngIf="employee?.reason;else block">
+        <h4 class="mx-1"> - {{employee?.reason}}</h4>
+    </div>
+    <ng-template #block>
+        <h3 class="mx-4">No Reason</h3>
+    </ng-template>
+</div>
+
+<div class="row" *ngIf="employee?.imageName">
+    <div class="col d-flex justify-content-center mt-3 p-2">
+        <img [src]="selectedImg" class="mt-3" width="400px">
+    </div>
+</div>

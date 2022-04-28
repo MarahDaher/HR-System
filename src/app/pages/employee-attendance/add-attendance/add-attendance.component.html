@@ -1,0 +1,47 @@
+<nz-spin [nzSpinning]="initLoading">
+
+    <form nz-form [formGroup]="filterForm">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 py-2" *ngIf="!employeeEdit">
+                <nz-form-item class="d-block mx-1 my-0">
+                    <nz-form-label class="text-white">Employee</nz-form-label>
+                    <nz-form-control>
+                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Employee" [formControlName]="'employeeId'" [nzLoading]="isLoadingEmployee">
+                            <ng-container *ngFor="let c of employeeList">
+                                <nz-option nzCustomContent [nzValue]="c.id" [nzLabel]="c.fullName">
+                                    <span>{{c.fullName}}</span>
+                                </nz-option>
+                            </ng-container>
+
+                            <nz-option *ngIf="isLoadingEmployee" nzDisabled nzCustomContent>
+                                <i nz-icon nzType="loading" class="loading-icon"></i> Loading
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-12 col-sm-12  py-2">
+                <nz-form-item class="d-block mx-1 my-0">
+                    <nz-form-label class="text-white">Check In Date</nz-form-label>
+                    <nz-form-control>
+                        <nz-date-picker [formControlName]="'checkIn'" class="w-100" [nzShowTime]="true" [nzDisabledTime]="disabledDateTime" [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm" [nzFormat]="utility.longDateFormat"></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-12 col-sm-12  py-2">
+                <nz-form-item class="d-block mx-1 my-0">
+                    <nz-form-label class="text-white">Check Out Date</nz-form-label>
+                    <nz-form-control>
+                        <nz-date-picker [formControlName]="'checkOut'" class="w-100" [nzShowTime]="true" [nzDisabledTime]="disabledDateTime" [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm" [nzFormat]="utility.longDateFormat"></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+</nz-spin>
+
+
+<div *nzModalFooter>
+    <button nz-button nzType="text" (click)="handleCancel()">Cancel</button>
+    <button type="button" class="btn btn-default" (click)="submitForm(filterForm.value)">Save</button>
+</div>

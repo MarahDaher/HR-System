@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col" *ngIf="employee?.reason;else block">
+        <h3>Reason</h3>
+        <h4 class="mx-1"> - {{employee?.reason}}</h4>
+    </div>
+    <ng-template #block>
+        <h3 class="mx-4">No Reason</h3>
+    </ng-template>
+</div>
+
+<div class="row" *ngIf="employee?.imageName" >
+    <div class="col d-flex justify-content-center mt-3">
+        <img [src]="selectedImg" class="mt-3" width="400px">
+    </div>
+</div>
+
+
+<div *nzModalFooter>
+    <button nz-button nzType="text" (click)="handleCancel()">Cancel</button>
+</div>
